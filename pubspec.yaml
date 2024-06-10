@@ -10,11 +10,11 @@ dependencies:
   flutter:
     sdk: flutter
 
-  google_maps_flutter: ^2.6.0
-  google_maps_flutter_platform_interface: ^2.6.0
+  google_maps_flutter: ^2.7.0
+  google_maps_flutter_platform_interface: ^2.7.1
   apple_maps_flutter:
     git:
-      url: https://github.com/millerf/platform_maps_flutter
+      url: https://github.com/millerf/apple_maps_flutter
 
 dev_dependencies:
   flutter_lints: ^4.0.0
