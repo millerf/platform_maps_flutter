@@ -108,6 +108,7 @@ class Marker {
     this.infoWindow = InfoWindow.noText,
     this.position = const LatLng(0.0, 0.0),
     this.onTap,
+    this.zIndex = -1,
     this.visible = true,
     this.onDragEnd,
   }) : assert((0.0 <= alpha && alpha <= 1.0));
@@ -160,11 +161,14 @@ class Marker {
         anchor: anchor,
         draggable: draggable,
         infoWindow: infoWindow.appleMapsInfoWindow,
+        consumeTapEvents: consumeTapEvents,
         onTap: onTap,
-        icon: icon?.bitmapDescriptor ?? BitmapDescriptor.defaultMarker?.bitmapDescriptor,
+        icon: icon?.bitmapDescriptor ??
+            BitmapDescriptor.defaultMarker?.bitmapDescriptor,
         visible: visible,
         onDragEnd: onDragEnd != null
-            ? (apple_maps.LatLng latLng) => _onAppleAnnotationDragEnd(latLng, onDragEnd)
+            ? (apple_maps.LatLng latLng) =>
+                _onAppleAnnotationDragEnd(latLng, onDragEnd)
             : null,
         position: position.appleLatLng,
       );
@@ -176,10 +180,12 @@ class Marker {
         draggable: draggable,
         infoWindow: infoWindow.googleMapsInfoWindow,
         onTap: onTap,
-        icon: icon?.bitmapDescriptor ?? BitmapDescriptor.defaultMarker?.bitmapDescriptor,
+        icon: icon?.bitmapDescriptor ??
+            BitmapDescriptor.defaultMarker?.bitmapDescriptor,
         visible: visible,
         onDragEnd: onDragEnd != null
-            ? (google_maps.LatLng latLng) => _onGoogleMarkerDragEnd(latLng, onDragEnd)
+            ? (google_maps.LatLng latLng) =>
+                _onGoogleMarkerDragEnd(latLng, onDragEnd)
             : null,
         position: position.googleLatLng,
       );
@@ -192,30 +198,36 @@ class Marker {
         draggable: marker.draggable,
         infoWindow: marker.infoWindow.appleMapsInfoWindow,
         onTap: marker.onTap,
-        icon: marker.icon?.bitmapDescriptor ?? BitmapDescriptor.defaultMarker?.bitmapDescriptor,
+        icon: marker.icon?.bitmapDescriptor ??
+            BitmapDescriptor.defaultMarker?.bitmapDescriptor,
         visible: marker.visible,
         onDragEnd: marker.onDragEnd != null
-            ? (apple_maps.LatLng latLng) => _onAppleAnnotationDragEnd(latLng, marker.onDragEnd)
+            ? (apple_maps.LatLng latLng) =>
+                _onAppleAnnotationDragEnd(latLng, marker.onDragEnd)
             : null,
         position: marker.position.appleLatLng,
       );
 
-  static google_maps.Marker googleMapsMarkerFromMarker(Marker marker) => google_maps.Marker(
+  static google_maps.Marker googleMapsMarkerFromMarker(Marker marker) =>
+      google_maps.Marker(
         markerId: marker.markerId.googleMapsMarkerId,
         alpha: marker.alpha,
         anchor: marker.anchor,
         draggable: marker.draggable,
         infoWindow: marker.infoWindow.googleMapsInfoWindow,
         onTap: marker.onTap,
-        icon: marker.icon?.bitmapDescriptor ?? BitmapDescriptor.defaultMarker?.bitmapDescriptor,
+        icon: marker.icon?.bitmapDescriptor ??
+            BitmapDescriptor.defaultMarker?.bitmapDescriptor,
         visible: marker.visible,
         onDragEnd: marker.onDragEnd != null
-            ? (google_maps.LatLng latLng) => _onGoogleMarkerDragEnd(latLng, marker.onDragEnd)
+            ? (google_maps.LatLng latLng) =>
+                _onGoogleMarkerDragEnd(latLng, marker.onDragEnd)
             : null,
         position: marker.position.googleLatLng,
       );
 
-  static Set<apple_maps.Annotation> toAppleMapsAnnotationSet(Set<Marker> markers) {
+  static Set<apple_maps.Annotation> toAppleMapsAnnotationSet(
+      Set<Marker> markers) {
     List<apple_maps.Annotation> annotations = <apple_maps.Annotation>[];
     for (Marker marker in markers) {
       annotations.add(appleMapsAnnotationFromMarker(marker));
@@ -256,11 +268,13 @@ class Marker {
     );
   }
 
-  static _onGoogleMarkerDragEnd(google_maps.LatLng latLng, Function? onDragEnd) {
+  static _onGoogleMarkerDragEnd(
+      google_maps.LatLng latLng, Function? onDragEnd) {
     onDragEnd?.call(LatLng._fromGoogleLatLng(latLng));
   }
 
-  static _onAppleAnnotationDragEnd(apple_maps.LatLng latLng, Function? onDragEnd) {
+  static _onAppleAnnotationDragEnd(
+      apple_maps.LatLng latLng, Function? onDragEnd) {
     onDragEnd?.call(LatLng._fromAppleLatLng(latLng));
   }
 }
