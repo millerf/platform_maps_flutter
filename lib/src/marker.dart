@@ -121,6 +121,9 @@ class Marker {
   /// 0.0 means fully transparent, 1.0 means fully opaque.
   final double alpha;
 
+  /// The index of the marker
+  final double zIndex;
+
   /// The icon image point that will be placed at the [position] of the marker.
   ///
   /// The image point is specified in normalized coordinates: An anchor of
@@ -161,8 +164,8 @@ class Marker {
         anchor: anchor,
         draggable: draggable,
         infoWindow: infoWindow.appleMapsInfoWindow,
-        consumeTapEvents: consumeTapEvents,
         onTap: onTap,
+        zIndex: zIndex,
         icon: icon?.bitmapDescriptor ??
             BitmapDescriptor.defaultMarker?.bitmapDescriptor,
         visible: visible,
@@ -178,6 +181,8 @@ class Marker {
         alpha: alpha,
         anchor: anchor,
         draggable: draggable,
+        consumeTapEvents: consumeTapEvents,
+        zIndex: zIndex,
         infoWindow: infoWindow.googleMapsInfoWindow,
         onTap: onTap,
         icon: icon?.bitmapDescriptor ??
@@ -197,6 +202,7 @@ class Marker {
         anchor: marker.anchor,
         draggable: marker.draggable,
         infoWindow: marker.infoWindow.appleMapsInfoWindow,
+        zIndex: marker.zIndex,
         onTap: marker.onTap,
         icon: marker.icon?.bitmapDescriptor ??
             BitmapDescriptor.defaultMarker?.bitmapDescriptor,
@@ -213,6 +219,7 @@ class Marker {
         markerId: marker.markerId.googleMapsMarkerId,
         alpha: marker.alpha,
         anchor: marker.anchor,
+        zIndex: marker.zIndex,
         draggable: marker.draggable,
         infoWindow: marker.infoWindow.googleMapsInfoWindow,
         onTap: marker.onTap,
